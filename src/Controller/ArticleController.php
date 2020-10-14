@@ -20,6 +20,11 @@ class ArticleController extends AbstractController
      * @Route("/article/{article}",name="article_show")
      */
     public function show(Article $article) {
+        $this->denyAccessUnlessGranted("read_article",$article);
+        /*$user = $this->getUser();
+        if($user !== $article->getAuteur()){
+            throw $this->createAccessDeniedException();
+        }*/
         return $this->render("articles/show.html.twig", [
             "article" => $article
         ]);
